@@ -124,4 +124,111 @@ There are 3 unique bike types: electric, classic and docked.
 #### Create new table 
 I have decided to remove null values. 
 I am working on BigQuery Sandbox, so I cannot use delete function to remove nulls, hence I will create a new table.
-In the new table I will also add new column __ride_length__ which will be calculated by substracting column __started_at__ from the column __ended_at__. 
+In the new table I will also add new column __day_of_week__ and a calculative column __ride_length__ which will be calculated in minutes by substracting column __started_at__ from the column __ended_at__. 
+
+```
+CREATE TABLE Cyclistic_bike_share_data.cyclistic_q1_final AS
+SELECT *, 
+ROUND(((unix_seconds(ended_at) - unix_seconds(started_at))/60),2) AS ride_length_minutes,--converted started and ended into seconds and divided by 60 to convert to minutes and rounded final value to 2 decimals
+FORMAT_DATETIME('%A', started_at) AS day_of_week
+FROM Cyclistic_bike_share_data.cyclistic_q1
+WHERE 
+start_station_name IS NOT NULL AND
+start_station_id IS NOT NULL AND
+end_station_name IS NOT NULL AND
+end_station_id IS NOT NULL AND
+end_lat IS NOT NULL AND
+end_lng IS NOT NULL
+```
+The new table returned 822,488 number of rows as compared to 1066014 prior.
+
+## Analyze
+
+#### Calculate the number of rides taken by each user type (e.g., casual vs. member).
+
+```
+SELECT 
+COUNT(ride_id),
+FROM `Cyclistic_bike_share_data.cyclistic_q1_final`
+WHERE 
+member_casual = 'casual'
+```
+ Total number of rides taken by casual is 219727
+
+```
+SELECT 
+COUNT(ride_id),
+FROM `Cyclistic_bike_share_data.cyclistic_q1_final`
+WHERE 
+member_casual = 'member'
+```
+ Total number of rides taken by member is 602761
+
+ This shows the members are already taking more rides than casuals.
+
+
+#### Analyze total number of rides taken on weekend and weekdays
+
+```
+SELECT 
+Count(ride_id) AS total_rides
+FROM Cyclistic_bike_share_data.cyclistic_q1_final
+WHERE 
+member_casual = 'casual'AND
+day_of_week IN ('Saturday','Sunday')
+````
+```
+SELECT 
+Count(ride_id)
+FROM Cyclistic_bike_share_data.cyclistic_q1_final
+WHERE 
+member_casual = 'casual'AND
+day_of_week IN ('Monday','Tuesday', 'Wednesday', 'Thursday', 'Friday')
+```
+
+This returns that member took total 72929 rides on weekends and 146798 rides in weekdays (total rides of casual 219727)
+
+
+```
+SELECT 
+Count(ride_id) AS total_rides
+FROM Cyclistic_bike_share_data.cyclistic_q1_final
+WHERE 
+member_casual = 'member'AND
+day_of_week IN ('Saturday','Sunday')
+```
+
+```
+SELECT 
+Count(ride_id)
+FROM Cyclistic_bike_share_data.cyclistic_q1_final
+WHERE 
+member_casual = 'memebr' AND
+day_of_week IN ('Monday','Tuesday', 'Wednesday', 'Thursday', 'Friday')
+```
+This returns that member took total 131004 rides on weekends and 471757 rides in weekdays (total rides of member are 602761)
+
+ #### Analyze the average trip duration for different user types
+
+ ```
+SELECT 
+AVG(ride_length_minutes)
+FROM `my-first-project-260523.Cyclistic_bike_share_data.cyclistic_q1_final`
+WHERE 
+member_casual = 'casual'
+```
+Average trip duration for casual user type is 19.58 minutes
+
+
+```
+SELECT 
+AVG(ride_length_minutes)
+FROM `my-first-project-260523.Cyclistic_bike_share_data.cyclistic_q1_final`
+WHERE 
+member_casual = 'member'
+```
+Average trip duration for member user type is 10.67 minutes
+
+The trip duration for casual is more than members. 
+
+
