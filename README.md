@@ -142,7 +142,7 @@ end_lng IS NOT NULL
 ```
 The new table returned 822,488 number of rows as compared to 1066014 prior.
 
-## Analyze
+## Analysis and Share
 
 #### Calculate the number of rides taken by each user type (e.g., casual vs. member).
 
@@ -231,4 +231,47 @@ Average trip duration for member user type is 10.67 minutes
 
 The trip duration for casual is more than members. 
 
+For visualization, I have used PowerBI.  
 
+The ride composition i.e the total rides taken by members and causals:
+
+<img width="190" alt="image" src="https://github.com/deepika-wadhawa/GDA-Capstone_Cyclistic-Case_Study/assets/157010535/0644ed59-695d-4f14-8639-9dd3ace4b305">
+
+The total rides taken by members are 73.29% while casuals consisted of only 26.71% of rides. 
+
+The bike preference:
+
+<img width="194" alt="image" src="https://github.com/deepika-wadhawa/GDA-Capstone_Cyclistic-Case_Study/assets/157010535/8f707fad-4c31-45a5-a893-58f38b77ee9d">
+
+The most preferred bike for members and casual are classic bike followed by electric bike. The docked bike are least used and by visual it can be noted that these were used only by causals. 
+
+Next, hourly trend, weekday trend and monthly trends in members and casuals 
+
+
+<img width="316" alt="image" src="https://github.com/deepika-wadhawa/GDA-Capstone_Cyclistic-Case_Study/assets/157010535/2c90dd6f-a59c-4546-b60a-dbd811837c71">
+
+Hourly analysis: Throughout the day, the members exhibit two distinct peaks in trip volume. The first occurs during the morning hours, typically around 8 am, while the second peak is observed in the evening around 5pm. In contrast, the number of trips taken by casual riders shows a steady increase throughout the day until the evening, followed by a decline thereafter.
+Weekday Analysis: When comparing days of the week, it becomes evident that casual riders tend to take more trips during the weekends. Conversely, members exhibit a decrease in activity over the weekend compared to other days of the week.
+Monthly Analysis: Regarding monthly trips, both casual riders and members demonstrate similar patterns, with a notable increase in trips occurring during April.
+
+My entire dashboard on PowerBI looks like this:
+
+<img width="594" alt="image" src="https://github.com/deepika-wadhawa/GDA-Capstone_Cyclistic-Case_Study/assets/157010535/fdd44d1e-b3aa-47ba-85e0-21f4e9ddfabc">
+
+
+Key Takeaways:
+
+Members frequently utilize the bikes for commuting purposes as suggested by hourly trend, whereas non-members(casual) tend to use them for recreational activities.
+
+Members predominantly employ the bikes on weekdays, whereas casuals typically utilize them on weekends.
+
+Additionally, both groups exhibit a preference for classic bikes over electric ones.
+
+
+## Act
+
+1. Offering membership benefits could also attract casual riders, especially when bike availability is restricted during busy periods. This incentive might encourage them to transition to annual membership.
+2. When promoting Cyclistic bikes, prioritize classic bicycles as the primary model since they are preferred by the majority of users.
+3. Ensure that there is a sufficient quantity of bicycles available to accommodate the influx of casual riders during weekends and members during weekdays.
+
+### Thank you for reading my article! 
